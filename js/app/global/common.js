@@ -54,6 +54,14 @@ define(['./configs', './storage',  './hack', './regular'], function (configs, st
 			return /\.(jpeg|jpg|gif|png|bmp)(\?.*)*$/i.test(it);
 		},
 
+		isJsonP:function(it){
+			return /^\w+\([\[\{].*[\}\]]\)$/.test(it);
+		},
+
+		isJson:function(it){
+			return /^[\{\[].*[\}\]]$/.test(it);
+		},
+
 		/**
 		 * 获取数据类型 小写
 		 * @param it

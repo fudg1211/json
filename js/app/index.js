@@ -38,11 +38,11 @@ define(['./global/common', './global/data'], function (com, data) {
 
 				self.doAjax = false;
 
-				self.doStartCreate(msg, url, response);
+				self.doStartCreate(msg, url,response);
 			});
 		},
 
-		doStartCreate: function (msg, url, response) {
+		doStartCreate: function (msg ,url, response) {
 			var self = this;
 
 			if (!msg) {
@@ -55,22 +55,42 @@ define(['./global/common', './global/data'], function (com, data) {
 
 			msg = msg.trim();
 
-			var m = msg.match(/^([^\(]+\(){0,1}(.*?)(\)*;*)$/);
+			if(!com.isJsonP(msg) && !com.isJson(msg)){
+				if(/^\w+\(/.test(msg) || /^[\{\[]/.test(msg)){
+					if (self.doAjax) {
+						return false;
+					}
 
+					self.doAjax = true;
 
-			if (!m || !m[2]) {
+					com.ajax({
+						url: url,
+						hideLoading: true,
+						dataType: 'text',
+						async: false,
+						success: function (result) {
+							if (result && /\</i.test(result)) {
+								self.doStartCreate(result,url, response);
+							}
+						}
+					});
+				}
 				return false;
 			}
 
-
-			if (m[1]) {
-				m[1] = '<div>' + m[1] + '</div>';
+			var m;
+			if(com.isJsonP(msg)){
+				m = msg.match(/^(\w+\()(.+)\)$/);
+				self.startMsg = m[1];
+				msg = m[2];
+				self.endMsg = '})';
+			}else{
+				self.startMsg = '';
+				self.endMsg = '';
 			}
 
-			self.startMsg = m[1] || '';
-			self.endMsg = m[1] ? ')' : '';
 			try {
-				var newMsg = JSON.parse(m[2]);
+				var newMsg = JSON.parse(msg);
 				var html = self.forMart(newMsg);
 
 				if (self.startMsg) {
@@ -80,23 +100,7 @@ define(['./global/common', './global/data'], function (com, data) {
 				}
 				response([html]);
 			} catch (e) {
-				if (self.doAjax) {
-					return false;
-				}
 
-				self.doAjax = true;
-
-				com.ajax({
-					url: url,
-					hideLoading: true,
-					dataType: 'text',
-					async: false,
-					success: function (result) {
-						if (result && /\</i.test(result)) {
-							self.doStartCreate(result, url, response);
-						}
-					}
-				});
 
 			}
 		},
@@ -168,7 +172,7 @@ define(['./global/common', './global/data'], function (com, data) {
 				return '[]';
 			}
 
-			str += '<span class="collapser">-</span><span> [</span><div class="Farray">';
+			str += '<span class="collapser"> -</span><span> [</span><div class="Farray">';
 
 			for (; i < len; i++) {
 

@@ -13,7 +13,7 @@ body{
 }
 
 .distance{
-	padding-left: 2em !important;
+	margin-left: 2em !important;
 	position: relative;
 }
 
@@ -40,17 +40,12 @@ body{
 
 .collapser{
 	position: absolute;
-	left: 5px;
-	top: 0;
+	left: -15px;
+	top: 2px;
 	cursor: pointer;
 	width: 15px;
 	text-align: center;
-}
-
-.collapserArray{
-	position: absolute;
-	left: -25px;
-	top:0;
+	color: red;
 }
 
 
@@ -93,3 +88,10 @@ body{
 	max-width: 300px;
 }
 
+body>div>.collapser{
+	display: none;
+}
+
+body>.distance{
+	margin-left: 5px !important;
+}

@@ -6,7 +6,7 @@
 		if(text==='-'){
 			obj.text(' +');
 
-			$('<span> ...</span>').insertAfter(textObj);
+			$('<span>...</span>').insertAfter(textObj);
 			textObj.hide();
 		}else{
 			obj.text(' -');
@@ -17,21 +17,24 @@
 
 	var hover = function(){
 
-		var obj =$('.J-hover'),timeout;
+		var obj =$('.J-hover'),timeout,timeoutA,collapser = $('.collapser');
+
 
 		obj.mouseover(function(){
 			clearTimeout(timeout);
 			var self = this;
 			timeout = setTimeout(function(){
-				$('.hover').removeClass('hover');
 				$(self).addClass('hover');
-			},100);
+			},1);
 
 			return false;
 		});
 
 		obj.mouseout(function(){
-			$(this).removeClass('hover');
+			var self = this;
+			timeoutA = setTimeout(function(){
+				$(self).removeClass('hover');
+			},1);
 		});
 
 	};
