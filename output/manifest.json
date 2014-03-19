@@ -12,7 +12,7 @@
 	"offline_enabled": true,
 
 	"update_url": "https://clients2.google.com/service/update2/crx",
-	"version": "2.1.0",
+	"version": "2.1.1",
 
 	"permissions": [ "webRequest", "webRequestBlocking", "clipboardWrite", "tabs", "http://*/", "https://*/", "contextMenus" ],
 

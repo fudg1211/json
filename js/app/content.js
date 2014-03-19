@@ -220,18 +220,16 @@
 
 	var item_info=new item_info_obj();
 
+	setTimeout(function(){
+		var imgUrlObj = $('.imgUrl');
+		imgUrlObj.bind('mouseover',function(){
+			item_info.ready(this);
+		});
 
-	var imgUrlObj = $('.imgUrl');
-	imgUrlObj.bind('mouseover',function(){
-		item_info.ready(this);
-	});
-
-	imgUrlObj.bind('mouseout',function(){
-		item_info.hide();
-	});
-
-
-
+		imgUrlObj.bind('mouseout',function(){
+			item_info.hide();
+		});
+	},200);
 
 }());
 
