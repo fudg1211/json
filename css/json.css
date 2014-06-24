@@ -95,3 +95,11 @@ body>div>.collapser{
 body>.distance{
 	margin-left: 5px !important;
 }
+
+.commentContainer{
+	position: absolute;
+	top: 0;
+	right: 0;
+	line-height: 20px;
+	padding: 6px;
+}

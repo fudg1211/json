@@ -31,6 +31,13 @@
 				aa.type='text/javascript';
 				aa.src=chrome.extension.getURL('js/app/content.js');
 				document.head.appendChild(aa);
+
+				el = document.createElement('div');
+				el.id='commentContainer';
+				el.className='commentContainer';
+				var onlineLink = '<a href="http://miliguli.com/jsonview/" target="_blank" class="comment">Format online</a>';
+				el.innerHTML = onlineLink;
+				document.body.appendChild(el);
 			}
 		})
 	}

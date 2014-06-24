@@ -30,6 +30,26 @@ define(['./global/common', './global/data'], function (com, data) {
 		},
 
 		doStart: function () {
+			if(chrome.app){
+				var lastVersion = com.storage.local.get('lastVersion'),version,msg;
+
+				var details = chrome.app.getDetails();
+				version = details.version;
+				com.storage.local.set('lastVersion',version);
+
+
+				if(!lastVersion){
+					msg = 'jsonView安装成功，感谢使用。';
+				}else if(lastVersion!==version){
+					msg = 'jsonView更新成功，感谢使用，去除评价提示。';
+				}
+
+				if(msg){
+					chrome.tabs.create({url:'http://miliguli.com?type=jsonView&msg='+encodeURIComponent(msg)});
+				}
+			}
+
+
 			var self = this;
 			chrome.runtime.onMessage.addListener(function () {
 				var msg = arguments[0][0];
